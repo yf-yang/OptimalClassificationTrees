@@ -13,12 +13,12 @@ A MIP solver should be installed. Please refer to the guide [here](https://www.c
 -   Implement APIs to interpret/visualize the model.
 
 ### TODO List
--   Validate performance on 53 [UCI ML datasets](http://archive.ics.uci.edu/ml/index.php).
--   Complete APIs as [DecisionTreeClassifier](https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/tree/tree.py) from sklearn.
--   Code refactor and add comments.
--   APIs to interpret the model.
--   A document to explain how it is implemented.
--   Further improvement and experiments.
+-   []  Validate performance on 53 [UCI ML datasets](http://archive.ics.uci.edu/ml/index.php).
+-   []  Complete APIs as [DecisionTreeClassifier](https://github.com/scikit-learn/scikit-learn/blob/master/sklearn/tree/tree.py) from sklearn.
+-   []  Code refactor and add comments.
+-   []  APIs to interpret the model.
+-   []  A document to explain how it is implemented.
+-   []  Further improvement and experiments.
 
 ### Status
 Now the model only has a naive fit/predict method, which should be validated.
