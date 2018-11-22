@@ -1,0 +1,260 @@
+{
+  "Acute-inflammations-1": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/acute/diagnosis.data",
+    "layout": "txt",
+    "kwargs": {
+      "encoding": "utf-16"
+    },
+    "preprocess": [[0, "comma_string_to_float"], [1, "factorize"], [2, "factorize"], [3, "factorize"], [4, "factorize"], [5, "factorize"], [6, "factorize"]],
+    "drop_cols": [7],
+    "null_value": null,
+    "target": 6,
+    "dummy_cols": [],
+    "n": 120,
+    "p": 6,
+    "K": 2
+  },
+  "Acute-inflammations-2": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/acute/diagnosis.data",
+    "layout": "txt",
+    "kwargs": {
+      "encoding": "utf-16"
+    },
+    "preprocess": [[0, "comma_string_to_float"], [1, "factorize"], [2, "factorize"], [3, "factorize"], [4, "factorize"], [5, "factorize"], [7, "factorize"]],
+    "drop_cols": [6],
+    "null_value": null,
+    "target": 7,
+    "dummy_cols": [],
+    "n": 120,
+    "p": 6,
+    "K": 2
+  },
+  "Balance-scale": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/balance-scale/balance-scale.data",
+    "layout": "csv",
+    "kwargs": {},
+    "preprocess": [[0, "factorize"]],
+    "drop_cols": [],
+    "null_value": null,
+    "target": 0,
+    "dummy_cols": [],
+    "n": 625,
+    "p": 4,
+    "K": 3
+  },
+  "Banknote-authentication": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/00267/data_banknote_authentication.txt",
+    "layout": "csv",
+    "kwargs": {},
+    "preprocess": [],
+    "drop_cols": [],
+    "null_value": null,
+    "target": 4,
+    "dummy_cols": [],
+    "n": 1372,
+    "p": 4,
+    "K": 2
+  },
+  "Blood-transfusion": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/blood-transfusion/transfusion.data",
+    "layout": "csv",
+    "kwargs": {
+      "skiprows": 1
+    },
+    "preprocess": [],
+    "drop_cols": [],
+    "null_value": null,
+    "target": 4,
+    "dummy_cols": [],
+    "n": 748,
+    "p": 4,
+    "K": 2
+  },
+  "Breast-cancer-diagnostic": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wdbc.data",
+    "layout": "csv",
+    "kwargs": {},
+    "preprocess": [[1, "factorize"]],
+    "drop_cols": [0],
+    "null_value": null,
+    "target": 1,
+    "dummy_cols": [],
+    "n": 569,
+    "p": 30,
+    "K": 2
+  },
+  "Breast-cancer-prognostic": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/wpbc.data",
+    "layout": "csv",
+    "kwargs": {},
+    "preprocess": [[1, "factorize"]],
+    "drop_cols": [0, 2],
+    "null_value": "?",
+    "target": 1,
+    "dummy_cols": [],
+    "n": 194,
+    "p": 32,
+    "K": 2
+  },
+  "Breast-cancer": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data",
+    "layout": "csv",
+    "kwargs": {},
+    "preprocess": [[10, "factorize"]],
+    "drop_cols": [0],
+    "null_value": "?",
+    "target": 10,
+    "dummy_cols": [],
+    "n": 683,
+    "p": 9,
+    "K": 2
+  },
+  "Car-evaluation": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/car/car.data",
+    "layout": "csv",
+    "kwargs": {},
+    "preprocess": [[10, "factorize"]],
+    "drop_cols": [0],
+    "null_value": "?",
+    "target": 10,
+    "dummy_cols": [],
+    "n": 683,
+    "p": 9,
+    "K": 2
+  },
+  "Chess-king-rook-vs-king-pawn": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/chess/king-rook-vs-king-pawn/kr-vs-kp.data"
+  },
+  "Climate-model-crashes": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/00252/pop_failures.dat"
+  },
+  "Congressional-voting-records": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/voting-records/house-votes-84.data"
+  },
+  "Connectionist-bench-sonar": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/undocumented/connectionist-bench/sonar/sonar.all-data"
+  },
+  "Connectionist-bench": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/undocumented/connectionist-bench/vowel/vowel-context.data"
+  },
+  "Contraceptive-method-choice": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/cmc/cmc.data"
+  },
+  "Credit-approval": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/credit-screening/crx.data"
+  },
+  "Cylinder-bands": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/cylinder-bands/bands.data"
+  },
+  "Dermatology": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/dermatology/dermatology.data"
+  },
+  "Echocardiogram": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/echocardiogram/echocardiogram.data"
+  },
+  "Fertility": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/00244/fertility_Diagnosis.txt"
+  },
+  "Haberman-survival": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/haberman/haberman.data"
+  },
+  "Hayes-roth": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/hayes-roth/hayes-roth.data"
+  },
+  "Heart-disease-Cleveland": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/processed.cleveland.data"
+  },
+  "Hepatitis": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/hepatitis/hepatitis.data"
+  },
+  "Image-segmentation": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/image/segmentation.data"
+  },
+  "Indian-liver-patient": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/00225/Indian%20Liver%20Patient%20Dataset%20(ILPD).csv"
+  },
+  "Ionosphere": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/ionosphere/ionosphere.data"
+  },
+  "Iris": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
+  },
+  "Mammographic-mass": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/mammographic-masses/mammographic_masses.data"
+  },
+  "Monks-problems-1": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/monks-problems/monks-1.train"
+  },
+  "Monks-problems-2": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/monks-problems/monks-2.train"
+  },
+  "Monks-problems-3": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/monks-problems/monks-3.train"
+  },
+  "Optical-recognition": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/optdigits/optdigits.tra"
+  },
+  "Ozone-level-detection-eight": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/ozone/eighthr.data"
+  },
+  "Ozone-level-detection-one": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/ozone/onehr.data"
+  },
+  "Parkinsons": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/parkinsons/parkinsons.data"
+  },
+  "Pima-Indians-diabetes": {
+    "url": "https://raw.githubusercontent.com/nebiljabari/Pima-Indian-Diabetes-Study/master/pima-indians-diabetes.data"
+  },
+  "Planning-relax": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/00230/plrx.txt"
+  },
+  "Qsar-biodegradation": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/00254/biodeg.csv"
+  },
+  "Seeds": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/00236/seeds_dataset.txt"
+  },
+  "Seismic-bumps": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/00266/seismic-bumps.arff"
+  },
+  "Soybean-small": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/soybean/soybean-small.data"
+  },
+  "Spambase": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/spambase/spambase.data"
+  },
+  "Spect-heart": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/spect/SPECT.train"
+  },
+  "Spectf-heart": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/spect/SPECTF.train"
+  },
+  "Statlog-project-German-credit": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/statlog/german/german.data-numeric"
+  },
+  "Statlog-project-landsat-satellite": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/statlog/satimage/sat.trn"
+  },
+  "Teaching-assistant-evaluation": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/tae/tae.data"
+  },
+  "Thoracic-surgery": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/00277/ThoraricSurgery.arff"
+  },
+  "Thyroid-disease-ann-thyroid": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/thyroid-disease/ann-train.data"
+  },
+  "Thyroid-disease-new-thyroid": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/thyroid-disease/new-thyroid.data"
+  },
+  "Tic-tac-toe-endgame": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/tic-tac-toe/tic-tac-toe.data"
+  },
+  "Wall-following-robot-2": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/00194/sensor_readings_2.data"
+  },
+  "Wine": {
+    "url": "http://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data"
+  }
+}
