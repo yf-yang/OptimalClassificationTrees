@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+#-*- coding:utf-8 -*-
+
 import os
 import urllib.request
 import json
@@ -14,6 +17,7 @@ def download_file(name, spec):
     # file exists
     if os.path.isfile(save_file):
         print('Ignore', save_file, ': file exists')
+        return
 
     try:
         urllib.request.urlretrieve(url, save_file)
