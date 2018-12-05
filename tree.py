@@ -15,6 +15,9 @@ from sklearn.utils import compute_sample_weight
 from sklearn.utils.multiclass import check_classification_targets
 from sklearn.utils.validation import check_is_fitted
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.tree import DecisionTreeClassifier
+
+__all__ = ['OptimalClassificationTree']
 
 class OptimalClassificationTree(six.with_metaclass(ABCMeta, BaseEstimator), ClassifierMixin):
 
@@ -263,6 +266,15 @@ class OptimalClassificationTree(six.with_metaclass(ABCMeta, BaseEstimator), Clas
         assert np.all(y!=-1)
 
         return y
+
+    def _CART_init(self, X, y):
+        cart = DecisionTreeClassifier(
+            max_depth=self.max_depth+1, 
+            min_samples_leaf=self.min_samples_leaf,
+            presort=True)
+        cart.fit(X, y)
+        tree = cart.tree_
+
 
 def _get_parent(n_branch_nodes):
     """ Generate mapping from every branch nodes but root to there parent
