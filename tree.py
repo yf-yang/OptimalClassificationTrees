@@ -14,12 +14,13 @@ from sklearn.utils import check_random_state
 from sklearn.utils import compute_sample_weight
 from sklearn.utils.multiclass import check_classification_targets
 from sklearn.utils.validation import check_is_fitted
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
 from sklearn.tree import DecisionTreeClassifier
 
 __all__ = ['OptimalClassificationTree']
 
-class OptimalClassificationTree(six.with_metaclass(ABCMeta, BaseEstimator), ClassifierMixin):
+class OptimalClassificationTree(
+    six.with_metaclass(ABCMeta, BaseEstimator), ClassifierMixin):
 
     def __init__(self, 
                  max_depth, 
@@ -29,7 +30,7 @@ class OptimalClassificationTree(six.with_metaclass(ABCMeta, BaseEstimator), Clas
         self.min_samples_leaf = min_samples_leaf
         self.max_features = max_features
 
-    def fit(self, X, y, solver="GUROBI", eps=0.005, cp=0):
+    def fit(self, X, y, solver="GUROBI", CART_init = True, eps=0.005, cp=0):
         """Build a decision tree classifier from the training set (X, y).
 
         Parameters
@@ -83,7 +84,7 @@ class OptimalClassificationTree(six.with_metaclass(ABCMeta, BaseEstimator), Clas
         else:
             raise Exception("No support for regression.")
         self.n_classes_ = self.n_classes_[0]
-        y = _one_hot(y, self.n_classes_)
+        y = OneHotEncoder(dtype=np.int)(y.reshape(-1,1))
 
         if isinstance(self.max_features, six.string_types):
             if self.max_features == "auto":
@@ -199,6 +200,10 @@ class OptimalClassificationTree(six.with_metaclass(ABCMeta, BaseEstimator), Clas
             raise ValueError("Installed solvers: %s, got %s"
                              % (cvx.installed_solvers(), solver))
 
+        # CART initilization
+        if CART_init:
+            v_a.value, v_b.value = self._CART_init(X, y)
+
         # solve the problem
         problem = cvx.Problem(objective, constraints)
         problem.solve(solver=solver)
@@ -206,7 +211,7 @@ class OptimalClassificationTree(six.with_metaclass(ABCMeta, BaseEstimator), Clas
         # save tree parameters
         self.a = v_a.value.T
         self.b = v_b.value
-        self.depth = self.max_depth # TBD
+        self.depth = self.max_depth # Todo:
 
         label, active_leaf = np.where(v_c.value)
         self.leaf_class = -np.ones(self.n_leaf_nodes, dtype=np.int)
@@ -240,7 +245,7 @@ class OptimalClassificationTree(six.with_metaclass(ABCMeta, BaseEstimator), Clas
             The predicted classes, or the predict values.
         """
 
-        # TBD check fitted
+        # Todo: check fitted
         n_samples, n_features = X.shape
 
         if self.n_features_ != n_features:
@@ -268,13 +273,77 @@ class OptimalClassificationTree(six.with_metaclass(ABCMeta, BaseEstimator), Clas
         return y
 
     def _CART_init(self, X, y):
+        """Init OCT with CART from sklearn
+
+        Parameters
+        ----------
+        X : array-like or sparse matrix of shape = [n_samples, n_features]
+            The input samples. It should be normalized to [0,1]
+
+        y : array of shape = [n_samples]
+            The predicted classes, or the predict values.
+
+        Returns
+        -------
+        a : array of shape = [n_branch_nodes, n_features]
+            Initialled weight matrix of OCT. Elements not in CART is initialed
+            with 0.
+
+        b : array of shape = [n_branch_nodes]
+            Initialled threshold vector of OCT. Elements not in CART is 
+            initialed with 0.
+        """
+
         cart = DecisionTreeClassifier(
-            max_depth=self.max_depth+1, 
+            max_depth=self.max_depth, 
             min_samples_leaf=self.min_samples_leaf,
             presort=True)
         cart.fit(X, y)
         tree = cart.tree_
 
+        # sklearn tree is a dfs tree, but OCT is bfs
+        dfs_index, bfs_index = _gen_dfs_bfs_map(
+            tree.children_left, tree.children_right)
+        a = np.zeros((self.n_branch_indexs, self.n_features_))
+        b = np.zeros((self.n_branch_indexs,))
+
+        # convert le (<=) in sklearn to ge (>=) in OCT
+        a[bfs_index, tree.feature[dfs_index]] = -1
+        b[bfs_index] = -tree.threshold[dfs_index]
+
+        return a, b
+
+def _gen_dfs_bfs_map(left, right):
+    """ Convert DFS tree in sklearn.tree.DecisionTreeClassifier to BFS 
+    tree in OCT
+
+    Parameters
+    ----------
+    left : array of shape [N], N is number of nodes in CART
+        Left children of each node, -1 represents None.
+
+    right : array of shape [N], N is number of nodes in CART
+        Right children of each node, -1 represents None.
+
+    returns
+    -------
+    dfs_index : array-like
+        Branch node indexes in DFS representation of CART.
+
+    bfs_index : array-like
+        Branch node indexes in BFS representation of CART.
+    """
+    dfs_index = np.where(left!=-1)
+    bfs_index = np.zeros_like(left)
+
+    # Todo: resolve data dependence
+    for i in dfs_index:
+        bfs_index[left[i]] = 2 * bfs_index[i] + 1
+        bfs_index[right[i]] = 2 * bfs_index[i] + 2
+
+    bfs_index = bfs_index[dfs_index]
+
+    return dfs_index, bfs_index
 
 def _get_parent(n_branch_nodes):
     """ Generate mapping from every branch nodes but root to there parent
@@ -334,12 +403,3 @@ def _gen_leaf_path(depth):
     right = list(zip(leaf_idx[route.flatten()], branch_idx[route.flatten()]))
 
     return mask, route, left, right
-
-def _one_hot(tensor, n_classes):
-    tensor = np.squeeze(tensor)
-    tensor_flat = tensor.flatten()
-    n_sample = len(tensor_flat)
-    encoded_flat = np.zeros((n_sample, n_classes), dtype = np.int)
-    encoded_flat[np.arange(n_sample), tensor_flat] = 1
-    encoded = encoded_flat.reshape(*tensor.shape, n_classes)
-    return encoded
